@@ -1,6 +1,6 @@
 module github.com/frank1995alfredo/twittor-go
 
-go 1.14.2
+go 1.14
 
 require (
 
