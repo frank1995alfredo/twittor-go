@@ -19,19 +19,19 @@ func Registro(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(t.Email) == 0 {
-		http.Error(w, "El email de usuario es requerido "+err.Error(), 400)
+		http.Error(w, "El email de usuario es requerido", 400)
 		return
 	}
 
 	if len(t.Password) < 6 {
-		http.Error(w, "Debe especificar una contraceña de al menos 6 caracteres "+err.Error(), 400)
+		http.Error(w, "Debe especificar una contraceña de al menos 6 caracteres", 400)
 		return
 	}
 
 	//validacion contra los datos
 	_, encontrado, _ := bd.ChequeoYaExisteUsuario(t.Email)
 	if encontrado == true {
-		http.Error(w, "Ya existe un usuario registrado con ese email "+err.Error(), 400)
+		http.Error(w, "Ya existe un usuario registrado con ese email", 400)
 		return
 	}
 
@@ -42,7 +42,7 @@ func Registro(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if status == false {
-		http.Error(w, "No se ha logrado insertar el registro del usuario ", 400)
+		http.Error(w, "No se ha logrado insertar el registro del usuario", 400)
 		return
 	}
 

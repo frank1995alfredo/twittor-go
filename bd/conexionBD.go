@@ -10,12 +10,14 @@ import (
 
 //MongoCN ... variable export
 var MongoCN = ConectarBD()
-var clientOptions = options.Client().ApplyURI("mongodb+srv://root:1234@cluster0-pbpgn.gcp.mongodb.net/test?retryWrites=true&w=majority")
+var clientOptions = options.Client().ApplyURI("mongodb://localhost:27017")
 
 //ConectarBD ... es la funcion que me permite conectar la base de datos
 func ConectarBD() *mongo.Client {
 	client, err := mongo.Connect(context.TODO(), clientOptions)
+
 	if err != nil {
+		log.Println("error en la conexion")
 		log.Fatal(err.Error())
 		return client
 	}
@@ -29,7 +31,7 @@ func ConectarBD() *mongo.Client {
 	return client
 }
 
-//ChequeoConnection ... chequeo a la conexion
+//ChequeoConnection ... hago un chequeo a la conexion
 func ChequeoConnection() int {
 	err := MongoCN.Ping(context.TODO(), nil)
 	if err != nil {
