@@ -10,37 +10,36 @@ import (
 )
 
 //Email ... valor de Email usado en todos los EndPoints
-var Email string 
+var Email string
 
 //IDUsuario ... es el ID devuelto del modelo, que se usara en todos los EndPoints
-var IDUsario string
+var IDUsuario string
 
-//ProcesoToken ... koin 
+//ProcesoToken ... koin
 func ProcesoToken(tk string) (*models.Claim, bool, string, error) {
-	miClave := []byte("1234")
+	miClave := []byte("1234567")
 	claims := &models.Claim{}
 
 	splitToken := strings.Split(tk, "Bearer")
-	if len(splitToken) != 2{
+	if len(splitToken) != 2 {
 		return claims, false, string(""), errors.New("formato de token invalido")
 	}
-    //quita los espacios del token
+	//quita los espacios del token
 	tk = strings.TrimSpace(splitToken[1])
 
-
-	tkn, err := jwt.ParseWithClaims(tk, claims, func(token *jwt.Token)(interface{}, error){
+	tkn, err := jwt.ParseWithClaims(tk, claims, func(token *jwt.Token) (interface{}, error) {
 		return miClave, nil
 	})
-	if err == nil{
+	if err == nil {
 		_, encontrado, _ := bd.ChequeoYaExisteUsuario(claims.Email)
-		if encontrado == true{
+		if encontrado == true {
 			Email = claims.Email
-			IDUsario = claims.ID.Hex()
+			IDUsuario = claims.ID.Hex()
 		}
-		return claims, encontrado, IDUsario, nil
+		return claims, encontrado, IDUsuario, nil
 	}
-    if !tkn.Valid {
-	    return claims, false, string(""), errors.New("token Invalido")
+	if !tkn.Valid {
+		return claims, false, string(""), errors.New("token Invalido")
 	}
 
 	return claims, false, string(""), err

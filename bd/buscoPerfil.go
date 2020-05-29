@@ -12,6 +12,7 @@ import (
 
 //BuscoPerfil ... busca un perfil en la BD
 func BuscoPerfil(ID string) (models.Usuario, error) {
+
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*15)
 	defer cancel()
 
@@ -31,6 +32,7 @@ func BuscoPerfil(ID string) (models.Usuario, error) {
 		fmt.Println("Registro no encontrado " + err.Error())
 		return perfil, err
 	}
+
 	return perfil, nil
 
 }

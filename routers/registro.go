@@ -10,6 +10,7 @@ import (
 
 //Registro ... es la funcion para crear en la BD el registro de usuario
 func Registro(w http.ResponseWriter, r *http.Request) {
+
 	var t models.Usuario
 	err := json.NewDecoder(r.Body).Decode(&t) //decodifica el body en el modelo
 
